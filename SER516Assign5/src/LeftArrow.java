@@ -19,8 +19,5 @@ public class LeftArrow extends Icon{
 		this.add(outIcon2);
 		this.subIcons.add(outIcon1);
 		this.subIcons.add(outIcon2);
-
-		
-
 	}
 }

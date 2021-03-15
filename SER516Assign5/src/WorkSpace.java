@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class WorkSpace extends JPanel implements Observer{
@@ -35,7 +36,7 @@ public class WorkSpace extends JPanel implements Observer{
 		for ( Icon icon : icons) {
 			if(icon.state == 0) {
 				icon.state = 2;
-				icon.setLocation(100, 100);
+				icon.setLocation(icon.x, icon.y);
 				this.add(icon);
 			}
 			if(icon.state == 2) {
@@ -49,13 +50,22 @@ public class WorkSpace extends JPanel implements Observer{
 				}
 			}
 		}
-		
-		
+		if(Repository.getInstance().isLoad) {
+			Repository.getInstance().isLoad = false;
+			repaint();
+		}
 	}
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		
+		Repository repo = Repository.getInstance();
+		if(repo.isCompiled) {
+			JOptionPane.showMessageDialog(this, "Compile success", "",JOptionPane.WARNING_MESSAGE);  
+			return;
+		}
+		if(repo.isLoad) {
+			removeAll();
+		}
 		repaint();
 	}
 

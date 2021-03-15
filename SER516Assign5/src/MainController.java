@@ -4,12 +4,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 /**
  * @author Xinkai Wang, Weixiang Zhang, Huijing Liang
  * @Created on 03/02/2021.
  */
 
 public class MainController implements MouseListener{
+	private JFileChooser jfilechooser = new JFileChooser("."); 
 	
 	public MainController() {
 		
@@ -49,7 +51,11 @@ public class MainController implements MouseListener{
 	public ActionListener saveListener() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				int a = jfilechooser.showOpenDialog(null); 
+				if(a == JFileChooser.APPROVE_OPTION){
+					String filePath = jfilechooser.getSelectedFile().getPath();
+					Repository.getInstance().save(filePath);
+				}
 			}
 		};
 	}
@@ -57,7 +63,11 @@ public class MainController implements MouseListener{
 	public ActionListener loadListener() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				int a = jfilechooser.showOpenDialog(null); 
+				if(a == JFileChooser.APPROVE_OPTION){
+					String filePath = jfilechooser.getSelectedFile().getPath();
+					Repository.getInstance().load(filePath);
+				}
 			}
 		};
 	}
@@ -65,7 +75,7 @@ public class MainController implements MouseListener{
 	public ActionListener newSpaceListener() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				Repository.getInstance().newTab();
 			}
 		};
 	}
@@ -73,7 +83,7 @@ public class MainController implements MouseListener{
 	public ActionListener compileListener() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				Repository.getInstance().compile();
 			}
 		};
 	}

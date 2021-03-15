@@ -23,7 +23,7 @@ public class Icon extends JPanel{
 
 	JLabel lbl_type;
 	int state;   //0-new, 1-on container, 2-on work space
-	String value = "";
+	String value = "null";
 	
 	public Icon() {
 		setBorder(new LineBorder(new Color(0, 0, 0)));

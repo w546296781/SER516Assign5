@@ -1,8 +1,11 @@
 import java.awt.Color;
 import java.awt.List;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Observable;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 /**
@@ -15,6 +18,8 @@ public class Repository extends Observable{
 	private ArrayList<Icon> icons;
 	private ArrayList<SubIcon[]> connections;
 	private ArrayList<SubIcon> activatedSubIcons;
+	public boolean isLoad = false;
+	public boolean isCompiled = false;
 	public Repository() {
 		icons = new ArrayList<Icon>();
 		activatedSubIcons = new ArrayList<>();
@@ -34,7 +39,13 @@ public class Repository extends Observable{
 		notifyObservers();
 	}
 
-	public void createNewIcon(String type) {
+	public void newIcon(String type) {
+		Icon newIcon = createNewIcon(type, 100, 100);
+		icons.add(newIcon);
+		notifyCanvas();
+	}
+	
+	public Icon createNewIcon(String type, int x, int y) {
 		Icon newIcon;
 		switch (type) {
 		case "(":
@@ -59,10 +70,11 @@ public class Repository extends Observable{
 			newIcon = new Hyphen(0);
 			break;
 		default:
-			return;
+			return null;
 		}
-		icons.add(newIcon);
-		notifyCanvas();
+		newIcon.x = x;
+		newIcon.y = y;
+		return newIcon;
 	}
 	
 	public ArrayList<Icon> getIcons() {
@@ -116,6 +128,69 @@ public class Repository extends Observable{
 	}
 	public ArrayList<SubIcon[]> getConnections() {
 		return connections;
+	}
+	
+	public void save(String filePath) {
+		try {
+			FileWriter writer = new FileWriter(filePath);
+			writer.write(icons.size() + " " + connections.size() + "\r\n");
+			for (Icon icon : icons) {
+				writer.write(icon.type+ " " + icon.value+ " " + icon.x + " " + icon.y + "\r\n");
+			}
+			for(SubIcon[] item : connections) {
+				int icon1Index = icons.indexOf(item[0].containerIcon);
+				int subIcon1Index = item[0].containerIcon.subIcons.indexOf(item[0]);
+				int icon2Index = icons.indexOf(item[1].containerIcon);
+				int subIcon2Index = item[1].containerIcon.subIcons.indexOf(item[1]);
+				writer.write(icon1Index + "-" + subIcon1Index + " " + icon2Index + "-" + subIcon2Index + "\r\n");
+			}
+			writer.close();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void load(String filePath) {
+		isLoad = true;
+		icons = new ArrayList<Icon>();
+		connections = new ArrayList<>();
+		activatedSubIcons = new ArrayList<>();
+		try{
+			File input = new File(filePath);
+			Scanner myReader = new Scanner(input);
+			String[] tmp = myReader.nextLine().split(" ");
+			int iconsNum = Integer.parseInt(tmp[0]);
+			int connNum = Integer.parseInt(tmp[1]);
+			for(int i = 0; i < iconsNum; i++) {
+				String[] temp = myReader.nextLine().split(" ");
+				Icon newIcon = createNewIcon(temp[0], Integer.parseInt(temp[2]), Integer.parseInt(temp[3]));
+				newIcon.value = temp[1];
+				icons.add(newIcon);
+			}
+			for(int i = 0; i < connNum; i++) {
+				String[] temp = myReader.nextLine().split(" ");
+				String[] subIcon1Array = temp[0].split("-");
+				String[] subIcon2Array = temp[1].split("-");
+				SubIcon subIcon1 = icons.get(Integer.parseInt(subIcon1Array[0])).subIcons.get(Integer.parseInt(subIcon1Array[1]));
+				SubIcon subIcon2 = icons.get(Integer.parseInt(subIcon2Array[0])).subIcons.get(Integer.parseInt(subIcon2Array[1]));
+				subIcon1.connected = true;
+				subIcon2.connected = true;
+				connections.add(new SubIcon[]{subIcon1, subIcon2});
+			}
+			myReader.close();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		notifyCanvas();
+	}
+	
+	public void newTab() {
+		
+	}
+	
+	public void compile() {
+		isCompiled = true;
+		notifyCanvas();
 	}
 }
 

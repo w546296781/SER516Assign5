@@ -25,7 +25,9 @@ public class IconController  extends MouseInputAdapter{
 	{
 		if(icon.state == 2) {
 			  Point newPoint=SwingUtilities.convertPoint(icon,e.getPoint(),icon.getParent()); 
-			  icon.setLocation(icon.getX()+(newPoint.x-point.x),icon.getY()+(newPoint.y-point.y));
+			  icon.x = icon.getX()+(newPoint.x-point.x);
+			  icon.y = icon.getY()+(newPoint.y-point.y);
+			  icon.setLocation(icon.x, icon.y);
 			  point=newPoint;
 			  Repository.getInstance().notifyCanvas();
 		}
@@ -37,7 +39,7 @@ public class IconController  extends MouseInputAdapter{
 		   // TODO Auto-generated method stub
 		   super.mouseClicked(arg0);
 		   if(icon.state == 1) {
-			   Repository.getInstance().createNewIcon(icon.type);
+			   Repository.getInstance().newIcon(icon.type);
 			   
 		   }
 		   if (icon.state == 2 && arg0.getClickCount() == 2 && arg0.getButton() == MouseEvent.BUTTON1) {
