@@ -4,5 +4,13 @@ public class RightParenthesis extends Icon{
 		this.type = ")";
 		lbl_type.setText(")");
 		this.state = state;
+		
+		SubIcon inputIcon = new SubIcon(0, 1, this);
+		inputIcon.setLocation(4, 16);
+		this.add(inputIcon);
+		this.subIcons.add(inputIcon);
+		
+		
+
 	}
 }

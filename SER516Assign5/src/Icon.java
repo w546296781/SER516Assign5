@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
@@ -17,8 +18,9 @@ public class Icon extends JPanel{
 	int width = 140;
 	int height = 40;
 	String type = "";
-	boolean[] input = null;
-	boolean[] output = null;
+	ArrayList<SubIcon> subIcons = new ArrayList<>();
+	
+
 	JLabel lbl_type;
 	int state;   //0-new, 1-on container, 2-on work space
 	String value = "";
@@ -37,7 +39,7 @@ public class Icon extends JPanel{
 		IconController iconController = new IconController(this);
 		this.addMouseListener(iconController);
 		this.addMouseMotionListener(iconController);
-		
 	}
+	
 	
 }

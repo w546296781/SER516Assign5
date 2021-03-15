@@ -1,5 +1,7 @@
+import java.awt.Color;
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -11,9 +13,13 @@ import java.util.TimerTask;
 public class Repository extends Observable{
 	private static Repository instance;
 	private ArrayList<Icon> icons;
-	
+	private ArrayList<SubIcon[]> connections;
+	private ArrayList<SubIcon> activatedSubIcons;
 	public Repository() {
 		icons = new ArrayList<Icon>();
+		activatedSubIcons = new ArrayList<>();
+		connections = new ArrayList<>();
+		
 	}
 	
     public static Repository getInstance(){  
@@ -62,4 +68,54 @@ public class Repository extends Observable{
 	public ArrayList<Icon> getIcons() {
 		return icons;
 	}
+	
+	public void addActivatedSubIcon(SubIcon icon) {
+		activatedSubIcons.add(icon);
+		
+		if(activatedSubIcons.size() == 2) {
+			SubIcon subIcon1 = activatedSubIcons.get(0);
+			subIcon1.connected = true;
+			
+			SubIcon subIcon2 = activatedSubIcons.get(1);
+			subIcon2.connected = true;
+			
+			connections.add(new SubIcon[]{subIcon1, subIcon2});
+			activatedSubIcons.clear();
+			deactivateAllPossibleSubIcon();
+			
+		}
+		notifyCanvas();
+	}
+	
+	public void activateAllPossibleSubIcon(int status, Icon thisIcon) {
+		for(Icon icon : icons) {
+			if(!icon.equals(thisIcon)) {
+				for(SubIcon subIcon : icon.subIcons) {
+					if(subIcon.status != status && (subIcon.connections == 0 || !subIcon.connected)) {
+						subIcon.activated = true;
+					}
+				}
+			}	
+		}
+		notifyCanvas();
+	}
+	
+	public void deactivateAllPossibleSubIcon() {
+		for(Icon icon : icons) {
+			for(SubIcon subIcon : icon.subIcons) {
+				subIcon.activated = false;
+			}	
+		}
+		activatedSubIcons.clear();
+		notifyCanvas();
+	}
+	
+	public ArrayList<SubIcon> getActivatedSubIcons(){
+		return activatedSubIcons;
+		
+	}
+	public ArrayList<SubIcon[]> getConnections() {
+		return connections;
+	}
 }
+
