@@ -1,13 +1,10 @@
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
