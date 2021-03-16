@@ -14,7 +14,6 @@ import java.util.TimerTask;
  */
 
 public class Repository extends Observable{
-	private static Repository instance;
 	private ArrayList<Icon> icons;
 	private ArrayList<SubIcon[]> connections;
 	private ArrayList<SubIcon> activatedSubIcons;
@@ -26,13 +25,6 @@ public class Repository extends Observable{
 		connections = new ArrayList<>();
 		
 	}
-	
-    public static Repository getInstance(){  
-    	if (instance == null) {  
-    			instance = new Repository();  
-    	}  
-    	return instance;  
-    }
 	
 	public void notifyCanvas() {
 		setChanged();
@@ -182,10 +174,6 @@ public class Repository extends Observable{
 			e.printStackTrace();
 		}
 		notifyCanvas();
-	}
-	
-	public void newTab() {
-		
 	}
 	
 	public void compile() {

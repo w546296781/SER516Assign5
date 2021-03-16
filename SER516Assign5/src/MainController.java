@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JTabbedPane;
 /**
  * @author Xinkai Wang, Weixiang Zhang, Huijing Liang
  * @Created on 03/02/2021.
@@ -12,14 +13,16 @@ import javax.swing.JFileChooser;
 
 public class MainController implements MouseListener{
 	private JFileChooser jfilechooser = new JFileChooser("."); 
+	private JTabbedPane jTabbedPane;
 	
-	public MainController() {
-		
+	public MainController(JTabbedPane jTabbedPane) {
+		this.jTabbedPane = jTabbedPane;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Repository.getInstance().deactivateAllPossibleSubIcon();
+		WorkSpace ws = (WorkSpace)jTabbedPane.getSelectedComponent();
+		ws.repository.deactivateAllPossibleSubIcon();
 		
 	}
 
@@ -54,7 +57,8 @@ public class MainController implements MouseListener{
 				int a = jfilechooser.showOpenDialog(null); 
 				if(a == JFileChooser.APPROVE_OPTION){
 					String filePath = jfilechooser.getSelectedFile().getPath();
-					Repository.getInstance().save(filePath);
+					WorkSpace ws = (WorkSpace)jTabbedPane.getSelectedComponent();
+					ws.repository.save(filePath);
 				}
 			}
 		};
@@ -66,16 +70,9 @@ public class MainController implements MouseListener{
 				int a = jfilechooser.showOpenDialog(null); 
 				if(a == JFileChooser.APPROVE_OPTION){
 					String filePath = jfilechooser.getSelectedFile().getPath();
-					Repository.getInstance().load(filePath);
+					WorkSpace ws = (WorkSpace)jTabbedPane.getSelectedComponent();
+					ws.repository.load(filePath);
 				}
-			}
-		};
-	}
-	
-	public ActionListener newSpaceListener() {
-		return new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Repository.getInstance().newTab();
 			}
 		};
 	}
@@ -83,7 +80,8 @@ public class MainController implements MouseListener{
 	public ActionListener compileListener() {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Repository.getInstance().compile();
+				WorkSpace ws = (WorkSpace)jTabbedPane.getSelectedComponent();
+				ws.repository.compile();
 			}
 		};
 	}

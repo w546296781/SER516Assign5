@@ -1,8 +1,10 @@
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 public class IconContainer extends JPanel {
+	public JTabbedPane jTabbedPane;
 
 	/**
 	 * Create the panel.

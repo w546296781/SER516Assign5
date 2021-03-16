@@ -22,6 +22,7 @@ public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private int tabIndex = 1;
+	public JTabbedPane tabbedPane;
 
 	/**
 	 * Launch the application.
@@ -51,6 +52,25 @@ public class Main extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		WorkSpace ws = new WorkSpace();
+		ws.setBorder(new LineBorder(new Color(0, 0, 0)));
+		ws.setBackground(Color.WHITE);
+		ws.setLocation(307, 134);
+		ws.setSize(867, 481);
+		Repository repository = new Repository();
+		ws.repository = repository;
+		repository.addObserver(ws);
+		ws.setLayout(null);
+		
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tabbedPane.setBounds(170, 50, 968, 564);
+		contentPane.add(tabbedPane);
+		tabbedPane.add("Tab" + tabIndex, ws);
+		
+		MainController controller = new MainController(tabbedPane);
+		ws.addMouseListener(controller);
+		
 		IconContainer ic = new IconContainer();
 		ic.setBorder(new LineBorder(new Color(0, 0, 0)));
 		ic.setBackground(Color.WHITE);
@@ -58,23 +78,7 @@ public class Main extends JFrame {
 		ic.setLocation(0, 50);
 		contentPane.add(ic);
 		ic.setLayout(null);
-		
-		WorkSpace ws = new WorkSpace();
-		ws.setBorder(new LineBorder(new Color(0, 0, 0)));
-		ws.setBackground(Color.WHITE);
-		ws.setLocation(307, 134);
-		ws.setSize(867, 481);
-		Repository.getInstance().addObserver(ws);
-		ws.setLayout(null);
-		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tabbedPane.setBounds(170, 50, 968, 564);
-		contentPane.add(tabbedPane);
-		tabbedPane.add("Tab" + tabIndex, ws);
-		
-		MainController controller = new MainController();
-		ws.addMouseListener(controller);
+		ic.jTabbedPane = tabbedPane;
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -103,8 +107,11 @@ public class Main extends JFrame {
 				newws.setBackground(Color.WHITE);
 				newws.setLocation(307, 134);
 				newws.setSize(867, 481);
-				Repository.getInstance().addObserver(newws);
+				Repository newrepo = new Repository();
+				newws.repository = newrepo;
+				newrepo.addObserver(newws);
 				newws.setLayout(null);
+				newws.addMouseListener(controller);
 				tabbedPane.add("Tab" + tabIndex, newws);
 			}
 		});

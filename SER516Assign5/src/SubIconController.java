@@ -11,8 +11,9 @@ public class SubIconController extends MouseInputAdapter{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Repository repo = Repository.getInstance();
 		if(subIcon.containerIcon.state == 2) {
+			WorkSpace ws = (WorkSpace)subIcon.containerIcon.getParent();
+			Repository repo = ws.repository;
 			if(repo.getActivatedSubIcons().size() == 0) {
 				if(!subIcon.connected || subIcon.connections == 0) {
 					repo.addActivatedSubIcon(subIcon);

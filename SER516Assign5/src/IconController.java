@@ -29,7 +29,8 @@ public class IconController  extends MouseInputAdapter{
 			  icon.y = icon.getY()+(newPoint.y-point.y);
 			  icon.setLocation(icon.x, icon.y);
 			  point=newPoint;
-			  Repository.getInstance().notifyCanvas();
+			  WorkSpace ws = (WorkSpace)icon.getParent();
+			  ws.repository.notifyCanvas();
 		}
 	}
 	
@@ -39,8 +40,9 @@ public class IconController  extends MouseInputAdapter{
 		   // TODO Auto-generated method stub
 		   super.mouseClicked(arg0);
 		   if(icon.state == 1) {
-			   Repository.getInstance().newIcon(icon.type);
-			   
+			   IconContainer ic = (IconContainer)icon.getParent();
+			   WorkSpace ws = (WorkSpace)ic.jTabbedPane.getSelectedComponent();
+			   ws.repository.newIcon(icon.type);
 		   }
 		   if (icon.state == 2 && arg0.getClickCount() == 2 && arg0.getButton() == MouseEvent.BUTTON1) {
 			   String inputContent = JOptionPane.showInputDialog(

@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class WorkSpace extends JPanel implements Observer{
+	public Repository repository;
 
 	/**
 	 * Create the panel.
@@ -22,7 +23,7 @@ public class WorkSpace extends JPanel implements Observer{
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		ArrayList<SubIcon[]> connections = Repository.getInstance().getConnections();
+		ArrayList<SubIcon[]> connections = repository.getConnections();
 		for (SubIcon[] entry : connections) {
 			int x1 = entry[0].containerIcon.getLocation().x + entry[0].getLocation().x + 4;
 			int y1 = entry[0].containerIcon.getLocation().y + entry[0].getLocation().y + 4;
@@ -32,7 +33,7 @@ public class WorkSpace extends JPanel implements Observer{
 			
 			g.drawLine(x1, y1, x2, y2);
 		}
-		ArrayList<Icon> icons = Repository.getInstance().getIcons();
+		ArrayList<Icon> icons = repository.getIcons();
 		for ( Icon icon : icons) {
 			if(icon.state == 0) {
 				icon.state = 2;
@@ -50,20 +51,19 @@ public class WorkSpace extends JPanel implements Observer{
 				}
 			}
 		}
-		if(Repository.getInstance().isLoad) {
-			Repository.getInstance().isLoad = false;
+		if(repository.isLoad) {
+			repository.isLoad = false;
 			repaint();
 		}
 	}
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		Repository repo = Repository.getInstance();
-		if(repo.isCompiled) {
+		if(repository.isCompiled) {
 			JOptionPane.showMessageDialog(this, "Compile success", "",JOptionPane.WARNING_MESSAGE);  
 			return;
 		}
-		if(repo.isLoad) {
+		if(repository.isLoad) {
 			removeAll();
 		}
 		repaint();
