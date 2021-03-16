@@ -17,6 +17,7 @@ public class Repository extends Observable{
 	private ArrayList<Icon> icons;
 	private ArrayList<SubIcon[]> connections;
 	private ArrayList<SubIcon> activatedSubIcons;
+	private int incrementer = 0;
 	public boolean isLoad = false;
 	public boolean isCompiled = false;
 	public Repository() {
@@ -32,7 +33,7 @@ public class Repository extends Observable{
 	}
 
 	public void newIcon(String type) {
-		Icon newIcon = createNewIcon(type, 100, 100);
+		Icon newIcon = createNewIcon(type, 100 + incrementer++, 100 + incrementer++);
 		icons.add(newIcon);
 		notifyCanvas();
 	}
