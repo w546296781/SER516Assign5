@@ -21,6 +21,7 @@ public class Main extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private int tabIndex = 1;
 
 	/**
 	 * Launch the application.
@@ -61,11 +62,16 @@ public class Main extends JFrame {
 		WorkSpace ws = new WorkSpace();
 		ws.setBorder(new LineBorder(new Color(0, 0, 0)));
 		ws.setBackground(Color.WHITE);
-		ws.setLocation(170, 50);
-		ws.setSize(968, 565);
-		contentPane.add(ws);
+		ws.setLocation(307, 134);
+		ws.setSize(867, 481);
 		Repository.getInstance().addObserver(ws);
 		ws.setLayout(null);
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tabbedPane.setBounds(170, 50, 968, 564);
+		contentPane.add(tabbedPane);
+		tabbedPane.add("Tab" + tabIndex, ws);
 		
 		MainController controller = new MainController();
 		ws.addMouseListener(controller);
@@ -90,7 +96,18 @@ public class Main extends JFrame {
 		panel.add(btn_load);
 		
 		JButton btn_new = new JButton("New Space");
-		btn_new.addActionListener(controller.newSpaceListener());
+		btn_new.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabIndex++;
+				WorkSpace newws = new WorkSpace();
+				newws.setBackground(Color.WHITE);
+				newws.setLocation(307, 134);
+				newws.setSize(867, 481);
+				Repository.getInstance().addObserver(newws);
+				newws.setLayout(null);
+				tabbedPane.add("Tab" + tabIndex, newws);
+			}
+		});
 		btn_new.setFont(new Font("SimSun", Font.BOLD, 14));
 		btn_new.setBounds(355, 10, 110, 30);
 		panel.add(btn_new);
