@@ -1,8 +1,12 @@
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
@@ -80,26 +84,28 @@ public class Main extends JFrame {
 		ic.setLayout(null);
 		ic.jTabbedPane = tabbedPane;
 		
+		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBackground(Color.WHITE);
 		panel.setBounds(0, 0, 1138, 50);
 		contentPane.add(panel);
-		panel.setLayout(null);
 		
-		JButton btn_save = new JButton("Save");
+		
+		JMenuBar menubar = new JMenuBar();
+		
+		JMenu menu1 = new JMenu("Action Menu");
+		JMenuItem btn_save = new JMenuItem("Save");
+		JMenuItem btn_load = new JMenuItem("Load");
+		JMenuItem btn_new = new JMenuItem("New Space");
+		JMenuItem btn_compile = new JMenuItem("Compile");
 		btn_save.addActionListener(controller.saveListener());
-		btn_save.setFont(new Font("SimSun", Font.BOLD, 14));
-		btn_save.setBounds(35, 10, 110, 30);
-		panel.add(btn_save);
+		btn_save.setFont(new Font("SimSun", Font.BOLD, 20));
 		
-		JButton btn_load = new JButton("Load");
 		btn_load.addActionListener(controller.loadListener());
-		btn_load.setFont(new Font("SimSun", Font.BOLD, 14));
-		btn_load.setBounds(195, 10, 110, 30);
-		panel.add(btn_load);
+		btn_load.setFont(new Font("SimSun", Font.BOLD, 20));
 		
-		JButton btn_new = new JButton("New Space");
+		
 		btn_new.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tabIndex++;
@@ -115,15 +121,25 @@ public class Main extends JFrame {
 				tabbedPane.add("Tab" + tabIndex, newws);
 			}
 		});
-		btn_new.setFont(new Font("SimSun", Font.BOLD, 14));
-		btn_new.setBounds(355, 10, 110, 30);
-		panel.add(btn_new);
+		btn_new.setFont(new Font("SimSun", Font.BOLD, 20));
 		
-		JButton btn_compile = new JButton("Compile");
 		btn_compile.addActionListener(controller.compileListener());
-		btn_compile.setFont(new Font("SimSun", Font.BOLD, 14));
-		btn_compile.setBounds(515, 10, 110, 30);
-		panel.add(btn_compile);
+		btn_compile.setFont(new Font("SimSun", Font.BOLD, 20));
+		
+		
+		menu1.add(btn_save);
+		menu1.addSeparator();
+		menu1.add(btn_load);
+	    menu1.addSeparator();
+		menu1.add(btn_new);
+		menu1.addSeparator();
+		menu1.add(btn_compile);
+		menubar.add(menu1);
+		menu1.setFont(new Font("SimSun", Font.BOLD, 20));
+		menubar.setBounds(10, 10, 1138, 50);
+
+	
+		panel.add(menubar);
 		
 	}
 }

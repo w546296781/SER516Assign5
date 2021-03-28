@@ -1,19 +1,16 @@
-import java.awt.Color;
+
 import java.awt.Font;
+import java.awt.Graphics;
 import java.util.ArrayList;
+import javax.swing.*;
 
-import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 
 public class Icon extends JPanel{
 
 	int x = 0;
 	int y = 0;
-	int width = 140;
-	int height = 40;
+
 	String type = "";
 	ArrayList<SubIcon> subIcons = new ArrayList<>();
 	
@@ -23,10 +20,10 @@ public class Icon extends JPanel{
 	String value = "null";
 	
 	public Icon() {
-		setBorder(new LineBorder(new Color(0, 0, 0)));
+		
+
 		setSize(140, 40);
 		setLayout(null);
-		
 		lbl_type = new JLabel("");
 		lbl_type.setFont(new Font("SimSun", Font.BOLD, 14));
 		lbl_type.setHorizontalAlignment(SwingConstants.CENTER);
@@ -37,6 +34,10 @@ public class Icon extends JPanel{
 		this.addMouseListener(iconController);
 		this.addMouseMotionListener(iconController);
 	}
+	 protected void paintComponent(Graphics g) {
+	        g.drawOval(0, 0, g.getClipBounds().width, g.getClipBounds().height);
+	        
+	 }
 	
 	
 }
