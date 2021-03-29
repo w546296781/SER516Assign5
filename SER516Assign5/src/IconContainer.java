@@ -19,11 +19,14 @@ public class IconContainer extends JPanel {
 		CommercialAt ca = new CommercialAt(1);
 		ca.setLocation(15,180);
 		add(ca);
-		VerticalBar vb = new VerticalBar(1);
-		vb.setLocation(15,260);
-		add(vb);
+		LeftVerticalBar lv = new LeftVerticalBar(1);
+		lv.setLocation(15,260);
+		add(lv);
+		RightVerticalBar rv = new RightVerticalBar(1);
+		rv.setLocation(15,340);
+		add(rv);
 		Hyphen hy = new Hyphen(1);
-		hy.setLocation(15,340);
+		hy.setLocation(15,420);
 		add(hy);
 	}
 

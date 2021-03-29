@@ -56,8 +56,11 @@ public class Repository extends Observable{
 		case "@":
 			newIcon = new CommercialAt(0);
 			break;
-		case "||":
-			newIcon = new VerticalBar(0);
+		case "|-":
+			newIcon = new LeftVerticalBar(0);
+			break;
+		case "-|":
+			newIcon = new RightVerticalBar(0);
 			break;
 		case "-":
 			newIcon = new Hyphen(0);
