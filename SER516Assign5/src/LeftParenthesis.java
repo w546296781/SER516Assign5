@@ -8,7 +8,6 @@ public class LeftParenthesis extends Icon{
 		SubIcon outputIcon = new SubIcon(1, 1, this);
 		outputIcon.setLocation(128, 16);
 		this.subIcons.add(outputIcon);
-		add(outputIcon);
 		
 		
 	}

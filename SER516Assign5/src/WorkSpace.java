@@ -25,11 +25,11 @@ public class WorkSpace extends JPanel implements Observer{
 		super.paintComponent(g);
 		ArrayList<SubIcon[]> connections = repository.getConnections();
 		for (SubIcon[] entry : connections) {
-			int x1 = entry[0].containerIcon.getLocation().x + entry[0].getLocation().x + 4;
-			int y1 = entry[0].containerIcon.getLocation().y + entry[0].getLocation().y + 4;
+			int x1 = entry[0].containerIcon.getLocation().x + entry[0].x + 4;
+			int y1 = entry[0].containerIcon.getLocation().y + entry[0].y + 4;
 			
-			int x2 = entry[1].containerIcon.getLocation().x + entry[1].getLocation().x + 4;
-			int y2 = entry[1].containerIcon.getLocation().y + entry[1].getLocation().y + 4;
+			int x2 = entry[1].containerIcon.getLocation().x + entry[1].x + 4;
+			int y2 = entry[1].containerIcon.getLocation().y + entry[1].y + 4;
 			
 			g.drawLine(x1, y1, x2, y2);
 		}
@@ -40,15 +40,11 @@ public class WorkSpace extends JPanel implements Observer{
 				icon.setLocation(icon.x, icon.y);
 				this.add(icon);
 			}
-			if(icon.state == 2) {
-				for(SubIcon subIcon : icon.subIcons) {
-					if(subIcon.activated) {
-						subIcon.setBackground(Color.GREEN);
-					}else {
-						subIcon.setBackground(Color.GRAY);
-					}
-					
-				}
+			if(icon.activated) {
+				icon.setBackground(Color.GREEN);
+			}
+			else {
+				icon.setBackground(Color.WHITE);
 			}
 		}
 		if(repository.isLoad) {
@@ -67,6 +63,10 @@ public class WorkSpace extends JPanel implements Observer{
 			removeAll();
 		}
 		repaint();
+	}
+	
+	public void showDialog(String message) {
+		JOptionPane.showMessageDialog(this, message, "",JOptionPane.WARNING_MESSAGE);  
 	}
 
 }

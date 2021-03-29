@@ -44,13 +44,35 @@ public class IconController  extends MouseInputAdapter{
 			   WorkSpace ws = (WorkSpace)ic.jTabbedPane.getSelectedComponent();
 			   ws.repository.newIcon(icon.type);
 		   }
-		   if (icon.state == 2 && arg0.getClickCount() == 2 && arg0.getButton() == MouseEvent.BUTTON1) {
-			   String inputContent = JOptionPane.showInputDialog(
-                       icon.getParent(),
-                       "Value:",
-                       icon.value
-               );
-               icon.value = inputContent;
+		   if (icon.state == 2) {
+			   if(arg0.getClickCount() == 2 && arg0.getButton() == MouseEvent.BUTTON1) {
+				   		String inputContent = JOptionPane.showInputDialog(
+                       		icon.getParent(),
+                       		"Value:",
+                       		icon.value
+					);
+				   	icon.value = inputContent;
+			   }
+			   else {
+					WorkSpace ws = (WorkSpace)icon.getParent();
+					Repository repo = ws.repository;
+					if(repo.getActivatedSubIcons().size() == 0) {
+						SubIcon subIcon = icon.getFreeSubIcon(1);
+						if(subIcon == null) {
+							ws.showDialog("The output of this icon has reached its maximum limit");
+						}
+						else{
+							repo.addActivatedSubIcon(subIcon);
+							icon.activated = true;
+							repo.activateAllPossibleIcon();
+						}
+					}else if(icon.activated == true){
+						SubIcon subIcon = icon.getFreeSubIcon(0);
+						if(!repo.getActivatedSubIcons().contains(subIcon)) {
+							repo.addActivatedSubIcon(subIcon);
+						}
+					}
+			   }
 		   }
 		   
 		   

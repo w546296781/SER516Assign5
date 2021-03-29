@@ -7,7 +7,6 @@ public class RightParenthesis extends Icon{
 		
 		SubIcon inputIcon = new SubIcon(0, 1, this);
 		inputIcon.setLocation(4, 16);
-		this.add(inputIcon);
 		this.subIcons.add(inputIcon);
 		
 		

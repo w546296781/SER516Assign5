@@ -92,24 +92,21 @@ public class Repository extends Observable{
 		notifyCanvas();
 	}
 	
-	public void activateAllPossibleSubIcon(int status, Icon thisIcon) {
+	public void activateAllPossibleIcon() {
 		for(Icon icon : icons) {
-			if(!icon.equals(thisIcon)) {
-				for(SubIcon subIcon : icon.subIcons) {
-					if(subIcon.status != status && (subIcon.connections == 0 || !subIcon.connected)) {
-						subIcon.activated = true;
-					}
-				}
-			}	
+			if(icon.getFreeSubIcon(0) != null) {
+				icon.activated = true;
+			}
+			else {
+				icon.activated = false;
+			}
 		}
 		notifyCanvas();
 	}
 	
 	public void deactivateAllPossibleSubIcon() {
 		for(Icon icon : icons) {
-			for(SubIcon subIcon : icon.subIcons) {
-				subIcon.activated = false;
-			}	
+			icon.activated = false;	
 		}
 		activatedSubIcons.clear();
 		notifyCanvas();

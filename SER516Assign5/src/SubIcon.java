@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
-public class SubIcon extends JPanel{
+public class SubIcon{
 	// 0 for input, 1 for output
 	int status; 
 	
 	// 0 for unlimited, 1 for single
 	int connections; 
-	
+	int x;
+	int y;
 	boolean connected = false;
-	
-	boolean activated = false;
 	
 	Icon containerIcon;
 	
@@ -21,25 +20,9 @@ public class SubIcon extends JPanel{
 	ArrayList<SubIcon> outputs = new ArrayList<>();
 	
 	public SubIcon(int status, int connections, Icon icon) {
-		if(connections == 1) {
-			this.setSize(8, 8);
-		}else {
-			this.setSize(8, 24);
-		}
-		this.setBackground(Color.GRAY);
-		this.setLayout(null);
 		this.status = status;
 		this.connections = connections;
 		this.containerIcon = icon;
-		
-		
-		SubIconController controller = new SubIconController(this);
-		this.addMouseListener(controller);
-		this.addMouseMotionListener(controller);
-		
-		
-		
-		
 	}
 	
 	public int getStatus(){
@@ -50,5 +33,9 @@ public class SubIcon extends JPanel{
 		return connections;
 	}
 	
+	public void setLocation(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 	
 }

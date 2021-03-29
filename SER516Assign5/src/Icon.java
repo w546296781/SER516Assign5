@@ -13,7 +13,7 @@ public class Icon extends JPanel{
 
 	String type = "";
 	ArrayList<SubIcon> subIcons = new ArrayList<>();
-	
+	boolean activated = false;
 
 	JLabel lbl_type;
 	int state;   //0-new, 1-on container, 2-on work space
@@ -39,5 +39,16 @@ public class Icon extends JPanel{
 	        
 	 }
 	
-	
+	public SubIcon getFreeSubIcon(int status) {
+		SubIcon res = null;
+		for(SubIcon item : subIcons) {
+			if(item.status == status) {
+				if(!item.connected || item.connections == 0) {
+					res = item;
+					break;
+				}
+			}
+		}
+		return res;
+	}
 }
