@@ -6,11 +6,11 @@ public class VerticalBar extends Icon{
 		this.state = state;
 
 		SubIcon inputIcon = new SubIcon(0, 0, this);
-		inputIcon.setLocation(4, 10);
+		inputIcon.setLocation(0, 10);
 		this.subIcons.add(inputIcon);
 
 		SubIcon outputIcon = new SubIcon(1, 0, this);
-		outputIcon.setLocation(128, 10);
+		outputIcon.setLocation(134, 10);
 		this.subIcons.add(outputIcon);
 		
 

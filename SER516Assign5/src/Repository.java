@@ -70,6 +70,10 @@ public class Repository extends Observable{
 		return newIcon;
 	}
 	
+	public void addIcons(Icon icon) {
+		icons.add(icon);
+	}
+	
 	public ArrayList<Icon> getIcons() {
 		return icons;
 	}
@@ -94,7 +98,7 @@ public class Repository extends Observable{
 	
 	public void activateAllPossibleIcon() {
 		for(Icon icon : icons) {
-			if(icon.getFreeSubIcon(0) != null) {
+			if(icon.getFreeSubIcon(0) != null && (activatedSubIcons.get(0).containerIcon != icon || icon.type == "@" )) {
 				icon.activated = true;
 			}
 			else {

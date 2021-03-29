@@ -6,7 +6,7 @@ public class LeftArrow extends Icon{
 		this.state = state;
 		
 		SubIcon inputIcon = new SubIcon(0, 1, this);
-		inputIcon.setLocation(4, 16);
+		inputIcon.setLocation(0, 16);
 		this.subIcons.add(inputIcon);
 		
 		

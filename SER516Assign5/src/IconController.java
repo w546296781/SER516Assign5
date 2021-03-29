@@ -45,8 +45,11 @@ public class IconController  extends MouseInputAdapter{
 			   ws.repository.newIcon(icon.type);
 		   }
 		   if (icon.state == 2) {
+				WorkSpace ws = (WorkSpace)icon.getParent();
+				Repository repo = ws.repository;
 			   if(arg0.getClickCount() == 2 && arg0.getButton() == MouseEvent.BUTTON1) {
-				   		String inputContent = JOptionPane.showInputDialog(
+				   repo.deactivateAllPossibleSubIcon();
+				   	String inputContent = JOptionPane.showInputDialog(
                        		icon.getParent(),
                        		"Value:",
                        		icon.value
@@ -54,8 +57,6 @@ public class IconController  extends MouseInputAdapter{
 				   	icon.value = inputContent;
 			   }
 			   else {
-					WorkSpace ws = (WorkSpace)icon.getParent();
-					Repository repo = ws.repository;
 					if(repo.getActivatedSubIcons().size() == 0) {
 						SubIcon subIcon = icon.getFreeSubIcon(1);
 						if(subIcon == null) {

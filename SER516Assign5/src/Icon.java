@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Icon extends JPanel{
 		
 
 		setSize(140, 40);
+		setOpaque(false);
 		setLayout(null);
 		lbl_type = new JLabel("");
 		lbl_type.setFont(new Font("SimSun", Font.BOLD, 14));
@@ -30,13 +32,22 @@ public class Icon extends JPanel{
 		lbl_type.setBounds(50, 10, 40, 20);
 		add(lbl_type);
 		
+		this.setBackground(Color.WHITE);
 		IconController iconController = new IconController(this);
 		this.addMouseListener(iconController);
 		this.addMouseMotionListener(iconController);
 	}
+	
+	@Override
 	 protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			if(activated) {
+				g.setColor(Color.GREEN);
+			}
+			else {
+				g.setColor(Color.BLACK);
+			}
 	        g.drawOval(0, 0, g.getClipBounds().width, g.getClipBounds().height - 1);
-	        
 	 }
 	
 	public SubIcon getFreeSubIcon(int status) {

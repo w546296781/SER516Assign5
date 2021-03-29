@@ -64,9 +64,6 @@ public class Main extends JFrame {
 		ws.setBackground(Color.WHITE);
 		ws.setLocation(307, 134);
 		ws.setSize(867, 481);
-		Repository repository = new Repository();
-		ws.repository = repository;
-		repository.addObserver(ws);
 		ws.setLayout(null);
 		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -112,12 +109,10 @@ public class Main extends JFrame {
 			 	newws.setBackground(Color.WHITE); 
 			 	newws.setLocation(307, 134);
 			 	newws.setSize(867, 481); 
-			 	Repository newrepo = new Repository();
-			 	newws.repository = newrepo; 
-			 	newrepo.addObserver(newws);
 			 	newws.setLayout(null); 
 			 	newws.addMouseListener(controller);
 			 	tabbedPane.add("Tab" + tabIndex, newws);
+			 	newws.addMouseListener(controller);
 			 } 
 		});
 		fileMenu.add(btn_newSpace);

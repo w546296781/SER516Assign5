@@ -7,11 +7,11 @@ public class Hyphen extends Icon{
 
 		
 		SubIcon outputIcon = new SubIcon(1, 1, this);
-		outputIcon.setLocation(128, 16);
+		outputIcon.setLocation(134, 16);
 		this.subIcons.add(outputIcon);
 		
 		SubIcon inputIcon = new SubIcon(0, 1, this);
-		inputIcon.setLocation(4, 16);
+		inputIcon.setLocation(0, 16);
 		this.subIcons.add(inputIcon);
 
 	}
