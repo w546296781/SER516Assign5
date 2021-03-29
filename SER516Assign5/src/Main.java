@@ -1,14 +1,21 @@
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 /**
  * @author Xinkai Wang, Weixiang Zhang, Huijing Liang
  * @Created on 03/02/2021.
@@ -80,6 +87,7 @@ public class Main extends JFrame {
 		ic.setLayout(null);
 		ic.jTabbedPane = tabbedPane;
 		
+		
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBackground(Color.WHITE);
@@ -87,43 +95,49 @@ public class Main extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JButton btn_save = new JButton("Save");
-		btn_save.addActionListener(controller.saveListener());
-		btn_save.setFont(new Font("SimSun", Font.BOLD, 14));
-		btn_save.setBounds(35, 10, 110, 30);
-		panel.add(btn_save);
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 1138, 50);
+		panel.add(menuBar);
 		
-		JButton btn_load = new JButton("Load");
-		btn_load.addActionListener(controller.loadListener());
-		btn_load.setFont(new Font("SimSun", Font.BOLD, 14));
-		btn_load.setBounds(195, 10, 110, 30);
-		panel.add(btn_load);
+		JMenu fileMenu = new JMenu("File");
+		fileMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		fileMenu.setPreferredSize(new Dimension(200, 40));
+		menuBar.add(fileMenu);
 		
-		JButton btn_new = new JButton("New Space");
-		btn_new.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				tabIndex++;
-				WorkSpace newws = new WorkSpace();
-				newws.setBackground(Color.WHITE);
-				newws.setLocation(307, 134);
-				newws.setSize(867, 481);
-				Repository newrepo = new Repository();
-				newws.repository = newrepo;
-				newrepo.addObserver(newws);
-				newws.setLayout(null);
-				newws.addMouseListener(controller);
-				tabbedPane.add("Tab" + tabIndex, newws);
-			}
+		JMenuItem btn_newSpace = new JMenuItem("New Space");
+		btn_newSpace.addActionListener(new ActionListener() { public void
+			 actionPerformed(ActionEvent e) { 
+			 	tabIndex++;
+			 	WorkSpace newws = new WorkSpace(); 
+			 	newws.setBackground(Color.WHITE); 
+			 	newws.setLocation(307, 134);
+			 	newws.setSize(867, 481); 
+			 	Repository newrepo = new Repository();
+			 	newws.repository = newrepo; 
+			 	newrepo.addObserver(newws);
+			 	newws.setLayout(null); 
+			 	newws.addMouseListener(controller);
+			 	tabbedPane.add("Tab" + tabIndex, newws);
+			 } 
 		});
-		btn_new.setFont(new Font("SimSun", Font.BOLD, 14));
-		btn_new.setBounds(355, 10, 110, 30);
-		panel.add(btn_new);
+		fileMenu.add(btn_newSpace);
 		
-		JButton btn_compile = new JButton("Compile");
-		btn_compile.addActionListener(controller.compileListener());
-		btn_compile.setFont(new Font("SimSun", Font.BOLD, 14));
-		btn_compile.setBounds(515, 10, 110, 30);
-		panel.add(btn_compile);
+		JMenuItem btn_save = new JMenuItem("Save");
+		btn_save.addActionListener(controller.saveListener());
+		fileMenu.add(btn_save);
+		
+		JMenuItem btn_load = new JMenuItem("Load");
+		btn_load.addActionListener(controller.loadListener());
+		fileMenu.add(btn_load);
+		
+		JMenu actionMenu = new JMenu("Action");
+		actionMenu.setHorizontalAlignment(SwingConstants.CENTER);
+		actionMenu.setPreferredSize(new Dimension(200, 40));
+		menuBar.add(actionMenu);
+		
+		JMenuItem btn_run = new JMenuItem("Run");
+		btn_run.addActionListener(controller.compileListener());
+		actionMenu.add(btn_run);
 		
 	}
 }
