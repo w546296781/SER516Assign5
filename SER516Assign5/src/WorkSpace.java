@@ -65,6 +65,7 @@ public class WorkSpace extends JPanel implements Observer{
 			repaint();
 		}
 	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
@@ -82,6 +83,11 @@ public class WorkSpace extends JPanel implements Observer{
 		JOptionPane.showMessageDialog(this, message, "",JOptionPane.WARNING_MESSAGE);  
 	}
 	
+	/**
+	 * Reference from https://blog.csdn.net/wqjsir/article/details/6095277?utm_medium=distribute.
+	 * pc_relevant.none-task-blog-searchFromBaidu-6.control&dist_request_id=&
+	 * depth_1-utm_source=distribute.pc_relevant.none-task-blog-searchFromBaidu-6.control
+	 */
 	public static void drawAL(int sx, int sy, int ex, int ey, Graphics2D g2)
 	{
 
