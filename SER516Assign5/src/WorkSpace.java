@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 public class WorkSpace extends JPanel implements Observer{
 	public Repository repository;
+	public String tabName;
 
 	/**
 	 * Create the panel.
@@ -69,10 +70,6 @@ public class WorkSpace extends JPanel implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		// TODO Auto-generated method stub
-		if(repository.isCompiled) {
-			JOptionPane.showMessageDialog(this, "Compile success", "",JOptionPane.WARNING_MESSAGE);  
-			return;
-		}
 		if(repository.isLoad) {
 			removeAll();
 		}
@@ -121,7 +118,6 @@ public class WorkSpace extends JPanel implements Observer{
 		triangle.lineTo(x4, y4);
 		triangle.closePath();
 		g2.fill(triangle);
-
 	}
 
 	public static double[] rotateVec(int px, int py, double ang,

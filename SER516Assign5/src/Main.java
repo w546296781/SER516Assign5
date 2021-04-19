@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
+import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
 /**
  * @author Xinkai Wang, Weixiang Zhang, Huijing Liang
  * @Created on 03/02/2021.
@@ -53,11 +55,22 @@ public class Main extends JFrame {
 	public Main() {
 		setTitle("Assign5");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1154, 653);
+		setBounds(100, 100, 1400, 653);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		JTextPane txtpnn = new JTextPane();
+		txtpnn.setBounds(0, 0, 245, 564);
+		contentPane.add(txtpnn);
+		txtpnn.setEditable(false);
+		txtpnn.setAutoscrolls(true);
+		
+		JScrollPane scrollPane = new JScrollPane(txtpnn);
+		scrollPane.setBounds(1139, 50, 245, 564);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		contentPane.add(scrollPane);
 		
 		WorkSpace ws = new WorkSpace();
 		ws.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -71,8 +84,9 @@ public class Main extends JFrame {
 		tabbedPane.setBounds(170, 50, 968, 564);
 		contentPane.add(tabbedPane);
 		tabbedPane.add("Tab" + tabIndex, ws);
+		ws.tabName = "Tab" + tabIndex;
 		
-		MainController controller = new MainController(tabbedPane);
+		MainController controller = new MainController(tabbedPane, txtpnn);
 		ws.addMouseListener(controller);
 		
 		IconContainer ic = new IconContainer();
@@ -84,17 +98,16 @@ public class Main extends JFrame {
 		ic.setLayout(null);
 		ic.jTabbedPane = tabbedPane;
 		
-		
-		JPanel panel = new JPanel();
-		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 1138, 50);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JPanel menu_panel = new JPanel();
+		menu_panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		menu_panel.setBackground(Color.WHITE);
+		menu_panel.setBounds(0, 0, 1384, 50);
+		contentPane.add(menu_panel);
+		menu_panel.setLayout(null);
 		
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 1138, 50);
-		panel.add(menuBar);
+		menuBar.setBounds(0, 0, 1384, 50);
+		menu_panel.add(menuBar);
 		
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.setHorizontalAlignment(SwingConstants.CENTER);
@@ -113,6 +126,7 @@ public class Main extends JFrame {
 			 	newws.addMouseListener(controller);
 			 	tabbedPane.add("Tab" + tabIndex, newws);
 			 	newws.addMouseListener(controller);
+			 	newws.tabName = "Tab" + tabIndex;
 			 } 
 		});
 		fileMenu.add(btn_newSpace);

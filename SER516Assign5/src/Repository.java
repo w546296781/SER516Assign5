@@ -19,7 +19,6 @@ public class Repository extends Observable{
 	private ArrayList<SubIcon> activatedSubIcons;
 	private int incrementer = 0;
 	public boolean isLoad = false;
-	public boolean isCompiled = false;
 	public Repository() {
 		icons = new ArrayList<Icon>();
 		activatedSubIcons = new ArrayList<>();
@@ -178,11 +177,6 @@ public class Repository extends Observable{
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		notifyCanvas();
-	}
-	
-	public void compile() {
-		isCompiled = true;
 		notifyCanvas();
 	}
 }
